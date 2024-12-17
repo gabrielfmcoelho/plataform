@@ -1,0 +1,58 @@
+import type { Partner } from 'types/partner';
+
+export const mockPartners: Partner[] = [
+  {
+    id: 1,
+    name: 'Hospital Albert Einstein',
+    logo: 'https://images.unsplash.com/photo-1632833239869-a37e3a5806d2?w=200&h=100&fit=crop',
+    description: 'Leading healthcare institution in Latin America',
+    website: 'https://einstein.br',
+    createdAt: '2024-01-01T00:00:00Z',
+    updatedAt: '2024-03-15T00:00:00Z',
+  },
+  {
+    id: 2,
+    name: 'Hospital Sírio-Libanês',
+    logo: 'https://images.unsplash.com/photo-1632833239880-5e9b9c15d2c5?w=200&h=100&fit=crop',
+    description: 'Excellence in healthcare and medical research',
+    website: 'https://siriolibanes.org.br',
+    createdAt: '2024-01-01T00:00:00Z',
+    updatedAt: '2024-03-15T00:00:00Z',
+  },
+  {
+    id: 3,
+    name: 'Hospital Oswaldo Cruz',
+    logo: 'https://images.unsplash.com/photo-1632833239891-a37e3a5806d3?w=200&h=100&fit=crop',
+    description: 'Pioneer in medical excellence and patient care',
+    website: 'https://oswaldocruz.com',
+    createdAt: '2024-01-01T00:00:00Z',
+    updatedAt: '2024-03-15T00:00:00Z',
+  },
+  {
+    id: 4,
+    name: 'Hospital Samaritano',
+    logo: 'https://images.unsplash.com/photo-1632833239902-a37e3a5806d4?w=200&h=100&fit=crop',
+    description: 'Comprehensive healthcare solutions',
+    website: 'https://samaritano.org.br',
+    createdAt: '2024-01-01T00:00:00Z',
+    updatedAt: '2024-03-15T00:00:00Z',
+  },
+  {
+    id: 5,
+    name: 'Hospital São Luiz',
+    logo: 'https://images.unsplash.com/photo-1632833239913-a37e3a5806d5?w=200&h=100&fit=crop',
+    description: 'Quality healthcare services',
+    website: 'https://saoluiz.com.br',
+    createdAt: '2024-01-01T00:00:00Z',
+    updatedAt: '2024-03-15T00:00:00Z',
+  },
+  {
+    id: 6,
+    name: 'Hospital Santa Catarina',
+    logo: 'https://images.unsplash.com/photo-1632833239924-a37e3a5806d6?w=200&h=100&fit=crop',
+    description: 'Advanced medical care and technology',
+    website: 'https://santacatarina.org.br',
+    createdAt: '2024-01-01T00:00:00Z',
+    updatedAt: '2024-03-15T00:00:00Z',
+  },
+];
