@@ -1,4 +1,4 @@
-import { serviceIcons } from '@/lib/utils/serviceIcons.ts';
+import { serviceIcons } from '@/lib/utils/serviceIcons';
 import type { ApplicationService, CompanyService } from '@/types/service';
 
 export const mockApplicationsServices: ApplicationService[] = [
@@ -28,6 +28,7 @@ export const mockApplicationsServices: ApplicationService[] = [
     applicationStatus: true,
     createdAt: '2024-01-01T00:00:00Z',
     updatedAt: '2024-03-15T00:00:00Z',
+    deletedAt: ''
   },
   // ... other application services
 ];
@@ -35,11 +36,13 @@ export const mockApplicationsServices: ApplicationService[] = [
 export const mockCompanyServices: CompanyService[] = [
   {
     id: 1,
+    name: 'Assessoria',
     title: 'Assessoria',
     description: 'Consultoria especializada para otimização de processos hospitalares',
     image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&h=300&fit=crop',
     createdAt: '2024-01-01T00:00:00Z',
     updatedAt: '2024-03-15T00:00:00Z',
+    deletedAt: ''
   },
   // ... other company services
 ];

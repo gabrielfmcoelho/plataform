@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import LandingPage from '@/components/pages/Landing';
-import { getApplicationServices, getPartners } from '@/services/api';
 
 export const metadata: Metadata = {
   title: 'Our Services - Solude Health Tech',
@@ -18,19 +17,6 @@ export const metadata: Metadata = {
   },
 };
 
-async function getPageData() {
-  const [services, partners] = await Promise.all([
-    getApplicationServices(),
-    getPartners(),
-  ]);
-
-  return {
-    services: services.data,
-    partners: partners.data,
-  };
-}
-
 export default async function Page() {
-  const data = await getPageData();
-  return <LandingPage {...data} />;
+  return <LandingPage />;
 }

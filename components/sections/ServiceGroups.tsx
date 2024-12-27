@@ -1,6 +1,6 @@
 'use client';
 
-import { Service } from '@/types';
+import { Service } from '@/types/service';
 import ServiceCard from '@/components/cards/ServiceCard';
 
 interface ServiceGroupsProps {

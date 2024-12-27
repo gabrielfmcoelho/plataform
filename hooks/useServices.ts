@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
-import { getApplicationServices } from '@/services/application-services';
+import { getApplicationServices } from '@/services/api';
 import type { Service } from '@/types/service';
 
 export function useServices() {

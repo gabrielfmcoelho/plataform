@@ -1,7 +1,7 @@
 import { API_CONFIG } from '@/config/api';
-import type { ApiResponse, ApiError } from '@/types/api';
+import type { ApiResponse, ApiErrorData } from '@/types/api';
 
-export class ApiError extends Error {
+export class ApiError extends Error implements ApiErrorData {
   constructor(
     public status: number,
     message: string,
@@ -15,7 +15,7 @@ export class ApiError extends Error {
 export async function fetchWithRetry(
   url: string,
   options: RequestInit = {},
-  retries = API_CONFIG.RETRY_ATTEMPTS
+  retries: number = API_CONFIG.RETRY_ATTEMPTS
 ): Promise<Response> {
   try {
     const response = await fetch(url, {

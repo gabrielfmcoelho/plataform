@@ -14,12 +14,10 @@ export function useLandingData() {
   useEffect(() => {
     async function fetchData() {
       try {
-        setLoading(true);
         const [partnersRes, servicesRes] = await Promise.all([
           getPartners(),
           getApplicationServices(),
         ]);
-
         setPartners(partnersRes.data);
         setServices(servicesRes.data);
       } catch (err) {
@@ -29,9 +27,8 @@ export function useLandingData() {
         setLoading(false);
       }
     }
-
     fetchData();
   }, []);
 
-  return { partners, services, loading, error };
+  return { loading, partners, services, error };
 }

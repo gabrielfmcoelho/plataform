@@ -18,21 +18,6 @@ export const metadata: Metadata = {
   },
 };
 
-async function getPageData() {
-  const [teamMembers, teamNews, partners] = await Promise.all([
-    getTeamMembers(),
-    getTeamNews(),
-    getPartners(),
-  ]);
-
-  return {
-    teamMembers: teamMembers.data,
-    teamNews: teamNews.data,
-    partners: partners.data,
-  };
-}
-
 export default async function Page() {
-  const data = await getPageData();
-  return <AboutPage {...data} />;
+  return <AboutPage />;
 }

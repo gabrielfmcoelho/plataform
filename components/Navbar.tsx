@@ -32,6 +32,11 @@ export default function Navbar() {
               Sobre Nós
             </Link>
             
+            <Link href={"/services"} className="text-gray-600 hover:text-gray-900">
+              Aplicações
+            </Link>
+
+            {/*
             <div className="relative">
               <button
                 className="text-gray-600 hover:text-gray-900 flex items-center"
@@ -44,7 +49,8 @@ export default function Navbar() {
                 </svg>
               </button>
               
-              {showServicesMenu && (
+              {
+              showServicesMenu && (
                 <div
                   className="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50"
                   onMouseEnter={() => setShowServicesMenu(true)}
@@ -67,6 +73,7 @@ export default function Navbar() {
                 </div>
               )}
             </div>
+            */}
           </div>
           
           {/* Desktop User Menu */}
