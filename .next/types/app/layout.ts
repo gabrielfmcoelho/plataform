@@ -1,4 +1,4 @@
-// File: /home/gabrielfmcoelho/Downloads/project/app/layout.tsx
+// File: /home/gabrielfmcoelho/projetos/solude/new/plataform/app/layout.tsx
 import * as entry from '../../../app/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

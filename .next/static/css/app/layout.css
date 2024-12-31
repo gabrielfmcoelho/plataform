@@ -1429,6 +1429,21 @@ body {
   opacity: 1;
 }
 
+@media not all and (min-width: 1024px) {
+
+  .max-lg\:flex {
+    display: flex;
+  }
+
+  .max-lg\:w-1\/2 {
+    width: 50%;
+  }
+
+  .max-lg\:justify-center {
+    justify-content: center;
+  }
+}
+
 @media (min-width: 640px) {
 
   .sm\:mx-auto {

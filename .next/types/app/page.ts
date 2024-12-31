@@ -1,4 +1,4 @@
-// File: /home/gabrielfmcoelho/Downloads/project/app/page.tsx
+// File: /home/gabrielfmcoelho/projetos/solude/new/plataform/app/page.tsx
 import * as entry from '../../../app/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

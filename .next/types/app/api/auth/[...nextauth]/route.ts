@@ -1,4 +1,4 @@
-// File: /home/gabrielfmcoelho/Downloads/project/app/api/auth/[...nextauth]/route.ts
+// File: /home/gabrielfmcoelho/projetos/solude/new/plataform/app/api/auth/[...nextauth]/route.ts
 import * as entry from '../../../../../../app/api/auth/[...nextauth]/route.js'
 import type { NextRequest } from 'next/server.js'
 

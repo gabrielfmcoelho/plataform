@@ -11,13 +11,13 @@ export const metadata: Metadata = {
   description: 'Advanced healthcare management solutions',
 };
 
-export default function RootLayout({
+function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-BR">
+    <html lang='pt-BR'>
       <body className={inter.className}>
         <Providers>
           <Navbar />
@@ -27,3 +27,5 @@ export default function RootLayout({
     </html>
   );
 }
+
+export default RootLayout;
