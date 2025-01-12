@@ -1,4 +1,4 @@
-import type { UserMetrics } from 'types/user-metrics';
+import type { UserMetrics } from '@/types/user-metrics';
 
 export const mockUserMetrics: UserMetrics[] = [
   {

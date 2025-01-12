@@ -1,16 +1,32 @@
 export type UserRole = 'admin' | 'manager' | 'staff' | 'guest';
 
-export interface User {
+export interface PublicUser {
   id: number;
+  name: string;
+  email: string;
+  role: UserRole;
+  lastLogin?: string | null;
+}
+
+export interface CreateUser {
   organizationId: number;
   name: string;
-  prefix: string | null;
+  prefix?: string | null;
   email: string;
-  password: string;
+  password?: string | null;
   role: UserRole;
-  configId: number;
-  metrisId: number;
-  lastLogin?: string;
+}
+
+export interface User {
+  id: number;
+  organizationId?: number | null;
+  name: string;
+  prefix?: string | null;
+  email: string;
+  role: UserRole;
+  configId?: number | null;
+  metricsId?: number | null;
+  lastLogin?: string | null;
 }
 
 export interface AccessLog {

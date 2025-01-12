@@ -103,13 +103,14 @@ export default function Navbar() {
                     <Building2 className="h-6 w-6" />
                   </Link>
                 )}
-                <button
+                <Link
+                  href={"/"}
                   onClick={logout}
                   className="flex items-center px-4 py-2 text-gray-600 hover:text-gray-900"
                 >
                   <LogOut className="h-4 w-4 mr-2" />
                   Logout
-                </button>
+                </Link>
               </>
             ) : (
               <Link
@@ -117,7 +118,7 @@ export default function Navbar() {
                 className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
               >
                 <LogIn className="h-4 w-4 mr-2" />
-                Login
+                Acessar Plataforma
               </Link>
             )}
           </div>
@@ -182,19 +183,20 @@ export default function Navbar() {
                     Administração
                   </Link>
                 )}
-                <button
+                <Link
+                  href={"/"}
                   onClick={logout}
                   className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
                 >
                   Logout
-                </button>
+                </Link>
               </>
             ) : (
               <Link
                 href={"/login"}
                 className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
               >
-                Login
+                Acessar Plataforma
               </Link>
             )}
           </div>

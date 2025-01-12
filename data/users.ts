@@ -1,4 +1,4 @@
-import type { User } from 'types/user';
+import type { User } from '@/types/user';
 
 
 export const mockUsers: User[] = [
@@ -8,10 +8,9 @@ export const mockUsers: User[] = [
     name: 'Sarah Johnson',
     prefix: 'Dr(a).',
     email: 'sarah.j@hospital.com',
-    password: '12345678',
     role: 'admin',
     configId: 1,
-    metrisId: 1,
+    metricsId: 1,
   },
   {
     id: 2,
@@ -19,10 +18,9 @@ export const mockUsers: User[] = [
     name: 'Emily Chen',
     prefix: null,
     email: 'e.chen@hospital.com',
-    password: '12345678',
     role: 'staff',
     configId: 2,
-    metrisId: 2,
+    metricsId: 2,
   },
   {
     id: 3,
@@ -30,9 +28,8 @@ export const mockUsers: User[] = [
     name: 'Guest User',
     prefix: null,
     email: 'guest@example.com',
-    password: 'guest',
     role: 'guest',
     configId: null,
-    metrisId: null,
+    metricsId: null,
   }
 ];

@@ -1,0 +1,118 @@
+'use client';
+
+import { useState } from 'react';
+import { Edit2, Trash2, Plus, Search } from 'lucide-react';
+import UserModal from '@/components/modals/UserModal';
+import type { User, CreateUser, UserRole } from '@/types/user';
+
+interface UserManagementProps {
+  users: User[];
+  onAddUser: (user: User) => void;
+  onEditUser: (user: User) => void;
+  onDeleteUser: (userId: number) => void;
+}
+
+export default function UserManagement({ users, onAddUser, onEditUser, onDeleteUser }: UserManagementProps) {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const [editingUser, setEditingUser] = useState<CreateUser | null>(null);
+
+  const filteredUsers = users.filter(user =>
+    user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    user.role.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const handleAddUser = () => {
+    setEditingUser(null);
+    setShowModal(true);
+  };
+
+  const handleEditUser = (user: User) => {
+    // parse User to CreateUser
+    const parsedUser: CreateUser = {
+        organizationId: user.organizationId,
+        name: user.name,
+        prefix: user.prefix ?? null,
+        email: user.email,
+        role: user.role,
+        password: null
+    }
+    setEditingUser(parsedUser);
+    setShowModal(true);
+  };
+
+  const handleSaveUser = (user: User) => {
+    if (editingUser) {
+      onEditUser(user);
+    } else {
+      onAddUser(user);
+    }
+    setShowModal(false);
+  };
+
+  return (
+    <div className="bg-white rounded-lg shadow">
+      <header className="p-6 border-b border-gray-200 flex justify-between">
+        <h2 className="text-xl font-semibold">User Management</h2>
+        <div className="flex items-center space-x-4">
+          <div className="relative">
+            <Search className="absolute left-3 top-2 h-5 w-5 text-gray-400" />
+            <input
+              type="text"
+              placeholder="Search users..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="pl-10 pr-4 py-2 border rounded-lg w-full"
+            />
+          </div>
+          <button
+            onClick={handleAddUser}
+            className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-md"
+          >
+            <Plus className="h-4 w-4 mr-2" /> Add User
+          </button>
+        </div>
+      </header>
+
+      <div className="overflow-x-auto">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Last Login</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredUsers.map(user => (
+              <tr key={user.id}>
+                <td>{user.name}</td>
+                <td>{user.email}</td>
+                <td>{user.role}</td>
+                <td>{user.lastLogin}</td>
+                <td>
+                  <button onClick={() => handleEditUser(user)}>
+                    <Edit2 />
+                  </button>
+                  <button onClick={() => onDeleteUser(user.id)}>
+                    <Trash2 />
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <UserModal
+        isOpen={showModal}
+        user={editingUser}
+        onClose={() => setShowModal(false)}
+        onSave={handleSaveUser}
+      />
+    </div>
+  );
+}

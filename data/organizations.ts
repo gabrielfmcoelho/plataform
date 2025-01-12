@@ -1,4 +1,4 @@
-
+import { Organization } from "@/types/organization";
 
 export const mockOrganizations: Organization[] = [
   {
@@ -14,9 +14,7 @@ export const mockOrganizations: Organization[] = [
     subscriptionPeriod: null,
     subscriptionUsersLimit: null,
     subscriptionReportsLimit: null,
-    subscriptionLastReport: null,
-    subscriptionEmittedReports: null,
-    subscriptionNextReport: null,
+    organizationMetricsId: 1,
     subscriptionInitDate: null,
     subscriptionEndDate: null,
     subscriptionUpdatedAt: null,
@@ -37,9 +35,7 @@ export const mockOrganizations: Organization[] = [
     subscriptionPeriod: null,
     subscriptionUsersLimit: null,
     subscriptionReportsLimit: null,
-    subscriptionLastReport: null,
-    subscriptionEmittedReports: null,
-    subscriptionNextReport: null,
+    organizationMetricsId: 2,
     subscriptionInitDate: null,
     subscriptionEndDate: null,
     subscriptionUpdatedAt: null,
@@ -60,9 +56,7 @@ export const mockOrganizations: Organization[] = [
     subscriptionPeriod: null,
     subscriptionUsersLimit: 3,
     subscriptionReportsLimit: 1,
-    subscriptionLastReport: '',
-    subscriptionEmittedReports: 0,
-    subscriptionNextReport: '',
+    organizationMetricsId: 3,
     subscriptionInitDate: null,
     subscriptionEndDate: null,
     subscriptionUpdatedAt: null,
@@ -83,10 +77,8 @@ export const mockOrganizations: Organization[] = [
     subscriptionPeriod: null,
     subscriptionUsersLimit: 10,
     subscriptionReportsLimit: 3,
-    subscriptionLastReport: '',
-    subscriptionEmittedReports: 2,
-    subscriptionNextReport: '',
     subscriptionInitDate: null,
+    organizationMetricsId: 4,
     subscriptionEndDate: null,
     subscriptionUpdatedAt: null,
     createdAt: '',

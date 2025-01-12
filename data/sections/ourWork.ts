@@ -1,0 +1,7 @@
+import { Section } from "@/types/section"
+
+export const OurWork: Section = {
+    title: "Nosso Trabalho",
+    description: "A Solude Health Tech oferece uma série de produtos e serviços que auxiliam instituições de saúde, como hospitais e clínicas, a tomar decisões informadas, economizar recursos e melhorar a qualidade do atendimento.",
+    imgAlt: "Nossa equipe trabalhando"
+}

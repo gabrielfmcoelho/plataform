@@ -1,5 +1,5 @@
 import { apiRequest } from '@/lib/utils/api';
-import { API_ENDPOINTS_CONFIG } from '@/config/api';
+import { API_CONFIG, API_ENDPOINTS_CONFIG } from '@/config/api';
 import { mockTeamMembers, mockTeamNews } from '@/data/team';
 import { mockPartners } from '@/data/partners';
 import { mockApplicationsServices, mockCompanyServices } from '@/data/services';
@@ -7,10 +7,15 @@ import type { ApiResponse } from '@/types/api';
 import type { TeamMember, TeamNews } from '@/types/team';
 import type { Partner } from '@/types/partner';
 import type { ApplicationService, CompanyService } from '@/types/service';
+import type { OrganizationMetrics } from '@/types/organazation-metrics';
+import type { UserMetrics } from '@/types/user-metrics';
+import { User } from '@/types/user';
+import { mockUsers } from '@/data/users';
+import { mockOrganizationMetrics } from '@/data/organization-metrics';
 
 export async function getTeamMembers(): Promise<ApiResponse<TeamMember[]>> {
   try {
-    if (process.env.NEXT_PUBLIC_MOCK_ON_ERROR === '1') {
+    if (API_CONFIG.MOCK_ON_ERROR) {
       throw new Error('Mock error');
     }
     return await apiRequest<TeamMember[]>(`${API_ENDPOINTS_CONFIG.TEAM}/members`);
@@ -22,7 +27,7 @@ export async function getTeamMembers(): Promise<ApiResponse<TeamMember[]>> {
 
 export async function getTeamNews(): Promise<ApiResponse<TeamNews[]>> {
   try {
-    if (process.env.NEXT_PUBLIC_MOCK_ON_ERROR === '1') {
+    if (API_CONFIG.MOCK_ON_ERROR) {
       throw new Error('Mock error');
     }
     return await apiRequest<TeamNews[]>(`${API_ENDPOINTS_CONFIG.TEAM}/news`);
@@ -34,7 +39,7 @@ export async function getTeamNews(): Promise<ApiResponse<TeamNews[]>> {
 
 export async function getPartners(): Promise<ApiResponse<Partner[]>> {
   try {
-    if (process.env.NEXT_PUBLIC_MOCK_ON_ERROR === '1') {
+    if (API_CONFIG.MOCK_ON_ERROR) {
       throw new Error('Mock error');
     }
     return await apiRequest<Partner[]>(API_ENDPOINTS_CONFIG.PARTNERS);
@@ -46,7 +51,7 @@ export async function getPartners(): Promise<ApiResponse<Partner[]>> {
 
 export async function getApplicationServices(): Promise<ApiResponse<ApplicationService[]>> {
   try {
-    if (process.env.NEXT_PUBLIC_MOCK_ON_ERROR === '1') {
+    if (API_CONFIG.MOCK_ON_ERROR) {
       throw new Error('Mock error');
     }
     return await apiRequest<ApplicationService[]>(API_ENDPOINTS_CONFIG.APPLICATION_SERVICES);
@@ -58,7 +63,7 @@ export async function getApplicationServices(): Promise<ApiResponse<ApplicationS
 
 export async function getCompanyServices(): Promise<ApiResponse<CompanyService[]>> {
   try {
-    if (process.env.NEXT_PUBLIC_MOCK_ON_ERROR === '1') {
+    if (API_CONFIG.MOCK_ON_ERROR) {
       throw new Error('Mock error');
     }
     return await apiRequest<CompanyService[]>(API_ENDPOINTS_CONFIG.COMPANY_SERVICES);
@@ -70,7 +75,7 @@ export async function getCompanyServices(): Promise<ApiResponse<CompanyService[]
 
 export async function getApplicationService(id: number): Promise<ApiResponse<ApplicationService>> {
   try {
-    if (process.env.NEXT_PUBLIC_MOCK_ON_ERROR === '1') {
+    if (API_CONFIG.MOCK_ON_ERROR) {
       throw new Error('Mock error');
     }
     return await apiRequest<ApplicationService>(`${API_ENDPOINTS_CONFIG.APPLICATION_SERVICES}/${id}`);
@@ -84,7 +89,7 @@ export async function getApplicationService(id: number): Promise<ApiResponse<App
 
 export async function getCompanyService(id: number): Promise<ApiResponse<CompanyService>> {
   try {
-    if (process.env.NEXT_PUBLIC_MOCK_ON_ERROR === '1') {
+    if (API_CONFIG.MOCK_ON_ERROR) {
       throw new Error('Mock error');
     }
     return await apiRequest<CompanyService>(`${API_ENDPOINTS_CONFIG.COMPANY_SERVICES}/${id}`);
@@ -93,5 +98,33 @@ export async function getCompanyService(id: number): Promise<ApiResponse<Company
     const service = mockCompanyServices.find(s => s.id === id);
     if (!service) throw new Error('Company service not found');
     return { data: service, status: 200 };
+  }
+}
+
+export async function getOrganizationUsers(organizationId: number): Promise<ApiResponse<User[]>> {
+  try {
+    if (API_CONFIG.MOCK_ON_ERROR) {
+      throw new Error('Mock error');
+    }
+    return await apiRequest<User[]>(`${API_ENDPOINTS_CONFIG.ORGANIZATIONS}/${organizationId}/users`);
+  } catch(error) {
+    console.warn(`Failed to fetch organization ${organizationId} users, using mock data:`, error);
+    const users = mockUsers.filter(u => u.organizationId === organizationId);
+    if (!users) throw new Error('Organization users not find');
+    return { data: users, status: 200 };
+  }
+}
+
+export async function getOrganizationMetrics(organizationId: number): Promise<ApiResponse<OrganizationMetrics>> {
+  try {
+    if (API_CONFIG.MOCK_ON_ERROR) {
+      throw new Error('Mock error');
+    }
+    return await apiRequest<OrganizationMetrics>(`${API_ENDPOINTS_CONFIG.ORGANIZATIONS}/${organizationId}/metrics`);
+  } catch(error) {
+    console.warn(`Failed to fetch organization ${organizationId} metrics, using mock data:`, error);
+    const metrics = mockOrganizationMetrics.find(u => u.id === organizationId);
+    if (!metrics) throw new Error('Organization metrics not find');
+    return { data: metrics, status: 200 };
   }
 }

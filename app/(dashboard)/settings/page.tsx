@@ -2,7 +2,7 @@
 
 import { useSession } from 'next-auth/react';
 import UserManagement from '@/components/UserManagement';
-import UsageChart from '@/components/UsageChart';
+import UsageChart from '@/components/charts/UsageChart';
 import { History, Crown } from 'lucide-react';
 import { useSettingsData } from '@/hooks/useSettingsData';
 

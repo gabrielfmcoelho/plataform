@@ -1,10 +1,10 @@
-import { User } from './user';
+export type OrganizationType = "SuperAdmin" | "Hospital" | "Clinic";
 
 export interface Organization {
   id: number;
   name: string;
   logoUrl: string;
-  type: 'SuperAdmin' | 'Hospital' | 'Clinic';
+  type: OrganizationType;
   users: number[];
   subscribedServices: number[];
   pipelines: number[];
@@ -13,12 +13,10 @@ export interface Organization {
   subscriptionPeriod: string | null;
   subscriptionUsersLimit: number | null;
   subscriptionReportsLimit: number | null;
-  subscriptionLastReport: string | null;
-  subscriptionEmittedReports: number | null;
-  subscriptionNextReport: string | null;
   subscriptionInitDate: string | null;
   subscriptionEndDate: string | null;
   subscriptionUpdatedAt: string | null;
+  organizationMetricsId: number;
   createdAt: string;
   updatedAt: string;
   deletedAt: string;
