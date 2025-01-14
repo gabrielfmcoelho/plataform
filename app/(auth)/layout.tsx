@@ -1,22 +1,23 @@
 'use client';
 
-import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '@/contexts/AuthContext';
 
 export default function AuthLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const { data: session } = useSession();
+  const { user } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
-    if (session) {
+    // If user is logged in, redirect away from this auth page (e.g., to /hub)
+    if (user) {
       router.push('/hub');
     }
-  }, [session, router]);
+  }, [user, router]);
 
   return (
     <div className="min-h-screen bg-gray-50">

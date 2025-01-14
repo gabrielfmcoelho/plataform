@@ -11,3 +11,13 @@ export interface ApiErrorData {
 }
 
 export type ApiResult<T> = Promise<ApiResponse<T>>;
+
+export interface LoginRequest {
+  email: string;
+  password: string;
+}
+
+export interface LoginResponse {
+  accessToken: string;
+  refreshToken: string;
+}

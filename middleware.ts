@@ -1,29 +1,38 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { getToken } from 'next-auth/jwt';
 
 export async function middleware(request: NextRequest) {
-  const token = await getToken({ req: request });
-  const isAuthPage = request.nextUrl.pathname.startsWith('/login');
+  // Get the accessToken from cookies
+  const accessToken = request.cookies.get('accessToken')?.value;
   
-  // Redirect authenticated users away from auth pages
-  if (isAuthPage && token) {
+  const { pathname } = request.nextUrl;
+
+  const isAuthPage = pathname.startsWith('/login');
+  const isHub = pathname.startsWith('/hub');
+  const isAdmin = pathname.startsWith('/admin');
+  const isSettings = pathname.startsWith('/settings');
+
+  // If user is logged in, redirect from /login to /hub
+  if (isAuthPage && accessToken) {
     return NextResponse.redirect(new URL('/hub', request.url));
   }
 
-  // Protect dashboard routes
-  if (!token && request.nextUrl.pathname.startsWith('/hub')) {
+  // Protect /hub, /admin, /settings
+  if (!accessToken && (isHub || isAdmin || isSettings)) {
     return NextResponse.redirect(new URL('/login', request.url));
   }
 
-  // Protect admin routes
-  if (token?.role !== 'admin' && request.nextUrl.pathname.startsWith('/admin')) {
-    return NextResponse.redirect(new URL('/hub', request.url));
-  }
+  // If you want to protect admin routes, you can decode the token and check role here:
+  // e.g. verify(accessToken, secret) -> decode -> role === 'admin'?
+  // This example just does a placeholder for demonstration:
+
+  // if (isAdmin && !isUserAdmin(accessToken)) {
+  //   return NextResponse.redirect(new URL('/hub', request.url));
+  // }
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/hub/:path*', '/admin/:path*', '/settings/:path*', '/login']
+  matcher: ['/hub/:path*', '/admin/:path*', '/settings/:path*', '/login'],
 };

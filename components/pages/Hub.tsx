@@ -1,16 +1,14 @@
 'use client';
 
-import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState, useMemo } from 'react';
 import { useServices } from '@/hooks/useServices';
 import ServiceModal from '@/components/modals/ServiceModal';
 import HubFilters from '@/components/filters/HubFilters';
 import ServiceGroups from '@/components/sections/ServiceGroups';
-import { Service } from '@/types';
+import { Service } from '@/types/service';
 
 export default function HubContent() {
-  const { data: session } = useSession();
   const router = useRouter();
   
   const { services, setServices, loading, error } = useServices();

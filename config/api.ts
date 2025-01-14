@@ -1,5 +1,5 @@
 export const API_CONFIG = {
-  BASE_URL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api',
+  BASE_URL: process.env.NEXT_PUBLIC_API_URL || '',
   MOCK_ON_ERROR: process.env.NEXT_PUBLIC_MOCK_ON_ERROR === '1',
   TIMEOUT: 1000,
   RETRY_ATTEMPTS: 2,
@@ -17,4 +17,6 @@ export const API_ENDPOINTS_CONFIG = {
   APPLICATION_SERVICES: '/application-services',
   COMPANY_SERVICES: '/company-services',
   TEAM: '/team',
+  LOGIN: '/login',
+  LOGIN_GUEST: '/login-guest',
 } as const;

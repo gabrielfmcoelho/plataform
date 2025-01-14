@@ -3,7 +3,7 @@ import { API_CONFIG, API_ENDPOINTS_CONFIG } from '@/config/api';
 import { mockTeamMembers, mockTeamNews } from '@/data/team';
 import { mockPartners } from '@/data/partners';
 import { mockApplicationsServices, mockCompanyServices } from '@/data/services';
-import type { ApiResponse } from '@/types/api';
+import type { ApiResponse, LoginRequest, LoginResponse } from '@/types/api';
 import type { TeamMember, TeamNews } from '@/types/team';
 import type { Partner } from '@/types/partner';
 import type { ApplicationService, CompanyService } from '@/types/service';
@@ -126,5 +126,40 @@ export async function getOrganizationMetrics(organizationId: number): Promise<Ap
     const metrics = mockOrganizationMetrics.find(u => u.id === organizationId);
     if (!metrics) throw new Error('Organization metrics not find');
     return { data: metrics, status: 200 };
+  }
+}
+
+export async function loginUser({email, password}: LoginRequest): Promise<ApiResponse<LoginResponse>> {
+  try {
+    return await apiRequest<LoginResponse>(API_ENDPOINTS_CONFIG.LOGIN, {
+      method: 'POST',
+      body: JSON.stringify({email, password})
+    });
+  } catch (error) {
+    console.warn('Failed to login user:', error);
+    return { 
+      data: {
+        accessToken: '',
+        refreshToken: ''
+      }, 
+      status: 500
+    };
+  }
+}
+
+export async function loginGuestUser(): Promise<ApiResponse<LoginResponse>> {
+  try {
+    return await apiRequest<LoginResponse>(API_ENDPOINTS_CONFIG.LOGIN_GUEST, {
+      method: 'POST'
+    }); 
+  } catch (error) {
+    console.warn('Failed to login guest user:', error);
+    return { 
+      data: {
+        accessToken: '',
+        refreshToken: ''
+      }, 
+      status: 500
+    };
   }
 }

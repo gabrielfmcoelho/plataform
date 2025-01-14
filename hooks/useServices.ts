@@ -1,12 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useSession } from 'next-auth/react';
 import { getApplicationServices } from '@/services/api';
 import type { Service } from '@/types/service';
 
 export function useServices() {
-  const { data: session } = useSession();
   const [services, setServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

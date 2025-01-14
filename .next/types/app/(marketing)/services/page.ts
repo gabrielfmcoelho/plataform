@@ -1,4 +1,4 @@
-// File: /home/gabrielfmcoelho/projetos/solude/new/plataform/app/(marketing)/services/page.tsx
+// File: /home/gabrielfmcoelho/projetos/solude/plataform/app/(marketing)/services/page.tsx
 import * as entry from '../../../../../app/(marketing)/services/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

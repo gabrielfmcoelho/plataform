@@ -45,4 +45,4 @@ export const mockCompanyServices: CompanyService[] = [
     deletedAt: ''
   },
   // ... other company services
-];
+]; 

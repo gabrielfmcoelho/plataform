@@ -1,13 +1,16 @@
+// /app/(auth)/login/page.tsx
 'use client';
 
 import { useState } from 'react';
-import { signIn } from 'next-auth/react';
 import Link from 'next/link';
 import { LogIn, Lock, Mail, User } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { useAuth } from '@/contexts/AuthContext';
 
 export default function LoginPage() {
   const router = useRouter();
+  const { login, loginAsGuest } = useAuth();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
@@ -18,39 +21,27 @@ export default function LoginPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg('');
-    const result = await signIn('credentials', { 
-      email,
-      password,
-      redirect: false 
-    });
 
-    if (result?.error) {
-      // Show error to user
-      setErrorMsg('Invalid email or password');
-      return;
-    }
-
-    if (result?.ok) {
+    try {
+      await login(email, password);
       router.push('/hub');
+    } catch (error) {
+      console.error('Login error', error);
+      setErrorMsg('Invalid email or password');
     }
   };
 
   const handleGuestLogin = async () => {
     setErrorMsg('');
-    const result = await signIn('credentials', { 
-      email: 'guest@example.com',
-      password: 'guest',
-      redirect: false 
-    });
-
-    if (result?.error) {
-      console.error(result.error);
-      setErrorMsg('Unable to login as guest');
-      return;
-    }
-
-    if (result?.ok) {
+      console.log('Guest login');
+    try {
+      console.log('try guest login');
+      await loginAsGuest();
+      console.log('guest login success');
       router.push('/hub');
+    } catch (error) {
+      console.error('Guest login error', error);
+      setErrorMsg('Unable to login as guest');
     }
   };
 
@@ -184,7 +175,11 @@ export default function LoginPage() {
                   <div className="flex">
                     <div className="flex-shrink-0">
                       <svg className="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                        <path
+                          fillRule="evenodd"
+                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                          clipRule="evenodd"
+                        />
                       </svg>
                     </div>
                     <div className="ml-3">
