@@ -46,7 +46,6 @@ export async function apiRequest<T>(
   options: RequestInit = {}
 ): Promise<ApiResponse<T>> {
   const url = `${API_CONFIG.BASE_URL}${endpoint}`;
-  
   try {
     const response = await fetchWithRetry(url, options);
     const data = await response.json();
@@ -56,6 +55,7 @@ export async function apiRequest<T>(
       status: response.status,
     };
   } catch (error) {
+    console.log('error', error);
     if (error instanceof ApiError) {
       throw error;
     }

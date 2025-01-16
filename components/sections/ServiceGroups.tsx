@@ -1,13 +1,13 @@
 'use client';
 
-import { Service } from '@/types/service';
+import { HubService } from '@/types/service';
 import ServiceCard from '@/components/cards/ServiceCard';
 
 interface ServiceGroupsProps {
-  groupedServices: Record<string, Service[]>;
-  onTogglePin: (serviceId: string) => void;
-  onEdit: (service: Service) => void;
-  onDelete: (serviceId: string) => void;
+  groupedServices: Record<string, HubService[]>;
+  onTogglePin: (serviceId: number) => void;
+  onEdit: (service: HubService) => void;
+  onDelete: (serviceId: number) => void;
 }
 
 export default function ServiceGroups({ groupedServices, onTogglePin, onEdit, onDelete }: ServiceGroupsProps) {

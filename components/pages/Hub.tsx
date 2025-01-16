@@ -1,37 +1,32 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { useEffect, useState, useMemo } from 'react';
 import { useServices } from '@/hooks/useServices';
 import ServiceModal from '@/components/modals/ServiceModal';
 import HubFilters from '@/components/filters/HubFilters';
 import ServiceGroups from '@/components/sections/ServiceGroups';
-import { Service } from '@/types/service';
+import { HubService } from '@/types/service';
+import Loading from '@/components/Loading';
+import Error from '@/components/Error';
 
-export default function HubContent() {
-  const router = useRouter();
-  
+export default function HubContent() {  
   const { services, setServices, loading, error } = useServices();
   
   const [searchTerm, setSearchTerm] = useState('');
   const [filterSubscribed, setFilterSubscribed] = useState<boolean | null>(null);
   const [selectedTag, setSelectedTag] = useState('all');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingService, setEditingService] = useState<Service | null>(null);
+  const [editingService, setEditingService] = useState<HubService | null>(null);
 
-  // Redirect if no user session
-  useEffect(() => {
-    if (!session?.user) {
-      router.push('/login'); 
-    }
-  }, [session, router]);
-
+  /*
   const tags = useMemo(
     () => ['all', ...new Set(services.map(service => service.tag))],
     [services]
   );
+  */
 
   // Filtering logic extracted for clarity
+  /*
   const filteredServices = useMemo(() => {
     return services
       .filter((service) => {
@@ -47,17 +42,19 @@ export default function HubContent() {
         return 0;
       });
   }, [services, searchTerm, filterSubscribed, selectedTag]);
+  */
 
   const groupedServices = useMemo(() => {
-    return filteredServices.reduce((acc, service) => {
-      const tag = service.tag;
+    return services.reduce((acc, service) => {
+      const tag = service.status;
       if (!acc[tag]) acc[tag] = [];
       acc[tag].push(service);
       return acc;
-    }, {} as Record<string, Service[]>);
-  }, [filteredServices]);
+    }, {} as Record<string, HubService[]>);
+  }, [services]);
 
-  const handleTogglePin = (serviceId: string) => {
+  const handleTogglePin = (serviceId: number) => {
+    /*
     setServices(prevServices =>
       prevServices.map(service =>
         service.id === serviceId
@@ -65,6 +62,7 @@ export default function HubContent() {
           : service
       )
     );
+    */
   };
 
   const handleAddService = () => {
@@ -72,52 +70,36 @@ export default function HubContent() {
     setIsModalOpen(true);
   };
 
-  const handleEditService = (service: Service) => {
+  const handleEditService = (service: HubService) => {
     setEditingService(service);
     setIsModalOpen(true);
   };
 
-  const handleDeleteService = (serviceId: string) => {
-    setServices(prevServices => prevServices.filter(service => service.id !== serviceId));
+  
+  const handleDeleteService = (serviceId: number) => {
+    //setServices(prevServices => prevServices.filter(service => service.id !== serviceId));
   };
 
-  const handleSaveService = (service: Service) => {
+  const handleSaveService = (service: HubService) => {
     if (editingService) {
-      setServices(prevServices =>
-        prevServices.map(s => (s.id === service.id ? service : s))
-      );
+      //setServices(prevServices =>
+      //  prevServices.map(s => (s.id === service.id ? service : s))
+      //);
     } else {
-      setServices(prevServices => [...prevServices, { ...service, id: String(Date.now()) }]);
+      //setServices(prevServices => [...prevServices, { ...service, id: String(Date.now()) }]);
     }
     setIsModalOpen(false);
   };
 
-  if (!session?.user) {
-    // Return null or a loading state until redirect
-    return null;
-  }
-
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-      </div>
+      <Loading />
     );
   }
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center text-center">
-        <div>
-          <p className="text-red-600 mb-4">{error}</p>
-          <button
-            onClick={() => window.location.reload()}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-          >
-            Try Again
-          </button>
-        </div>
-      </div>
+      <Error error={error} />
     );
   }
 
@@ -134,12 +116,12 @@ export default function HubContent() {
           Adicionar Serviço
         </button>
       </div>
-      <p className="mb-6 text-gray-600">Gerencie e descubra serviços hospitalares</p>
+      <p className="mb-6 text-gray-600">Gerencie seus serviços hospitalares</p>
 
       <HubFilters
         searchTerm={searchTerm}
         onSearchChange={setSearchTerm}
-        tags={tags}
+        tags={['all']}
         selectedTag={selectedTag}
         onTagChange={setSelectedTag}
         filterSubscribed={filterSubscribed}
@@ -153,12 +135,14 @@ export default function HubContent() {
         onDelete={handleDeleteService}
       />
 
+      {/*
       <ServiceModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onSave={handleSaveService}
         service={editingService}
       />
+      */}
     </div>
   );
 }

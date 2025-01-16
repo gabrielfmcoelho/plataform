@@ -6,12 +6,14 @@ import { mockApplicationsServices, mockCompanyServices } from '@/data/services';
 import type { ApiResponse, LoginRequest, LoginResponse } from '@/types/api';
 import type { TeamMember, TeamNews } from '@/types/team';
 import type { Partner } from '@/types/partner';
-import type { ApplicationService, CompanyService } from '@/types/service';
+import type { ApplicationService, CompanyService, HubService } from '@/types/service';
 import type { OrganizationMetrics } from '@/types/organazation-metrics';
 import type { UserMetrics } from '@/types/user-metrics';
 import { User } from '@/types/user';
 import { mockUsers } from '@/data/users';
 import { mockOrganizationMetrics } from '@/data/organization-metrics';
+import { getAccessToken } from '@/lib/utils/cookies';
+import { access } from 'fs';
 
 export async function getTeamMembers(): Promise<ApiResponse<TeamMember[]>> {
   try {
@@ -49,15 +51,20 @@ export async function getPartners(): Promise<ApiResponse<Partner[]>> {
   }
 }
 
-export async function getApplicationServices(): Promise<ApiResponse<ApplicationService[]>> {
+export async function getOrganizationHubServices(): Promise<ApiResponse<HubService[]>> {
   try {
-    if (API_CONFIG.MOCK_ON_ERROR) {
-      throw new Error('Mock error');
-    }
-    return await apiRequest<ApplicationService[]>(API_ENDPOINTS_CONFIG.APPLICATION_SERVICES);
+    //if (API_CONFIG.MOCK_ON_ERROR) {
+    //  throw new Error('Mock error');
+    //}
+    return await apiRequest<HubService[]>(API_ENDPOINTS_CONFIG.ORGANIZATION_HUB_SERVICES.replace('{organizationId}', '1'), {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + getAccessToken()
+      }
+    });
   } catch (error) {
     console.warn('Failed to fetch application services, using mock data:', error);
-    return { data: mockApplicationsServices, status: 200 };
+    throw error;
   }
 }
 

@@ -3,12 +3,12 @@
 import { Clock, ExternalLink, Pin, Edit, Trash2 } from 'lucide-react';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
-import type { Service } from '@/types/service';
+import type { HubService } from '@/types/service';
 import { serviceIcons } from '@/lib/utils/serviceIcons';
 
 interface ServiceCardProps {
-  service: Service;
-  onTogglePin?: (serviceId: string) => void;
+  service: HubService;
+  onTogglePin?: (serviceId: number) => void;
   onEdit?: () => void;
   onDelete?: () => void;
 }
@@ -18,21 +18,22 @@ export default function ServiceCard({ service, onTogglePin, onEdit, onDelete }: 
   const isLoggedIn = !!session?.user;
 
   const serviceUrl = `/service/${service.name.toLowerCase().replace(/\s+/g, '-')}`;
-  const Icon = serviceIcons[service.tag] || serviceIcons['Clinical'];
+  const Icon = serviceIcons[service.status] || serviceIcons['Clinical'];
 
   return (
     <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
       <div className="relative h-48 overflow-hidden">
         <img
-          src={service.imageUrl}
+          src={service.screenshot_url}
           alt={service.name}
           className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
         <div className="absolute bottom-4 left-4 right-4 flex justify-between items-center">
           <span className={`px-2.5 py-1 rounded-full text-xs font-medium bg-white/90 text-gray-800`}>
-            {service.tag}
+            {service.status}
           </span>
+          {/*
           {isLoggedIn && (
             <button
               onClick={() => onTogglePin?.(service.id)}
@@ -44,6 +45,7 @@ export default function ServiceCard({ service, onTogglePin, onEdit, onDelete }: 
               <Pin className={`h-4 w-4 ${service.isPinned ? 'fill-current' : ''}`} />
             </button>
           )}
+            */}
         </div>
       </div>
 
@@ -52,7 +54,7 @@ export default function ServiceCard({ service, onTogglePin, onEdit, onDelete }: 
           <div className="flex items-center space-x-3">
             <Icon className="h-6 w-6 text-blue-600" />
             <h3 className="text-lg sm:text-xl font-semibold text-gray-900">
-              {isLoggedIn && service.isSubscribed ? (
+              {isLoggedIn ? (
                 <Link href={serviceUrl} className="hover:text-blue-600">
                   {service.name}
                 </Link>
@@ -88,9 +90,9 @@ export default function ServiceCard({ service, onTogglePin, onEdit, onDelete }: 
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-2 sm:space-y-0">
           <div className="flex items-center text-xs sm:text-sm text-gray-500">
             <Clock className="h-4 w-4 mr-1" />
-            <span>Updated {service.lastUpdate}</span>
+            <span>Updated {service.last_update}</span>
           </div>
-          {service.isSubscribed && isLoggedIn ? (
+          {isLoggedIn ? (
             <Link
               href={serviceUrl}
               className="w-full sm:w-auto px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm sm:text-base inline-flex items-center justify-center"

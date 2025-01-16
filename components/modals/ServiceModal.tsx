@@ -1,19 +1,19 @@
 import { X } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { serviceSchema } from '@/lib/utils/validation';
-import type { Service } from '@/types/service';
+import type { HubService } from '@/types/service';
 import { serviceIcons } from '@/lib/utils/serviceIcons';
 import { cn } from '@/lib/utils/cn';
 
 interface ServiceModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSave: (service: Service) => void;
-  service: Service | null;
+  onSave: (service: HubService) => void;
+  service: HubService | null;
 }
 
 export default function ServiceModal({ isOpen, onClose, onSave, service }: ServiceModalProps) {
-  const [formData, setFormData] = useState<Omit<Service, 'id'>>({
+  const [formData, setFormData] = useState<Omit<HubService, 'id'>>({
     name: '',
     description: '',
     tag: 'Clinical',

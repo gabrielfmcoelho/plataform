@@ -1,5 +1,16 @@
 import { LucideIcon } from 'lucide-react';
 
+export interface HubService {
+  id: number;
+  name: string;
+  icon_url: string;
+  description: string;
+  screenshot_url: string;
+  status: string;
+  last_update: string;
+  price: number;
+}
+
 export interface BaseService {
   id: string | number;
   name: string;

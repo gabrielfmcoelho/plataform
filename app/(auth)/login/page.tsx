@@ -33,7 +33,7 @@ export default function LoginPage() {
 
   const handleGuestLogin = async () => {
     setErrorMsg('');
-      console.log('Guest login');
+    console.log('Guest login');
     try {
       console.log('try guest login');
       await loginAsGuest();

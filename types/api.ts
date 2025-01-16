@@ -17,7 +17,7 @@ export interface LoginRequest {
   password: string;
 }
 
-export interface LoginResponse {
+export interface LoginResponse {  
   accessToken: string;
   refreshToken: string;
 }
