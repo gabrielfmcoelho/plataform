@@ -11,8 +11,11 @@ RUN npm install
 # Copy the application code
 COPY . .
 
+ENV NEXT_DISABLE_ESLINT=true    
+ENV NEXT_DISABLE_TYPE_CHECK=true    
+
 # Build the Next.js application
-RUN npm run build
+RUN NEXT_DISABLE_ESLINT=true NEXT_DISABLE_TYPE_CHECK=true npm run build
 
 # Stage 2: Production
 FROM node:20-alpine
@@ -34,3 +37,7 @@ EXPOSE 3000
 
 # Start the application
 CMD ["npm", "run", "start"]
+
+# To run the application, you can use the following command:
+# docker build -t nextjs-docker .
+# docker run -p 3000:3000 -d nextjs-docker

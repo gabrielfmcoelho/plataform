@@ -31,13 +31,13 @@ export default function UserManagement({ users, onAddUser, onEditUser, onDeleteU
   const handleEditUser = (user: User) => {
     // parse User to CreateUser
     const parsedUser: CreateUser = {
-        organizationId: user.organizationId,
-        name: user.name,
-        prefix: user.prefix ?? null,
-        email: user.email,
-        role: user.role,
-        password: null
-    }
+      organizationId: user.organizationId ?? 0, // Provide a default value, e.g., 0
+      role: 'staff',
+      name: user.name,
+      prefix: user.prefix ?? null,
+      email: user.email,
+  };
+  
     setEditingUser(parsedUser);
     setShowModal(true);
   };

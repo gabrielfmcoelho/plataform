@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useMemo } from 'react';
 import { useOrganizationHubServices } from '@/hooks/useOrganzationHubServices';
-import ServiceModal from '@/components/modals/ServiceModal';
+//import ServiceModal from '@/components/modals/ServiceModal';
 import HubFilters from '@/components/filters/HubFilters';
 import ServiceGroups from '@/components/sections/ServiceGroups';
 import { HubService } from '@/types/service';

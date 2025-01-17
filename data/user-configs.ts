@@ -1,4 +1,4 @@
-import type { UserConfig } from 'types/user-config';
+import type { UserConfig } from '@/types/user-config';
 
 export const mockUserConfigs: UserConfig[] = [
   {
