@@ -1,13 +1,13 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { getPartners, getApplicationServices } from '@/services/api';
+import { getPartners, getMarketingServices } from '@/services/api';
 import type { Partner } from '@/types/partner';
-import type { ApplicationService } from '@/types/service';
+import type { MarketingService } from '@/types/service';
 
 export function useLandingData() {
   const [partners, setPartners] = useState<Partner[]>([]);
-  const [services, setServices] = useState<ApplicationService[]>([]);
+  const [marketingServices, setMarketingServices] = useState<MarketingService[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -16,10 +16,10 @@ export function useLandingData() {
       try {
         const [partnersRes, servicesRes] = await Promise.all([
           getPartners(),
-          getApplicationServices(),
+          getMarketingServices(),
         ]);
         setPartners(partnersRes.data);
-        setServices(servicesRes.data);
+        setMarketingServices(servicesRes.data);
       } catch (err) {
         setError('Failed to load landing page data');
         console.error('Error loading landing page data:', err);
@@ -30,5 +30,5 @@ export function useLandingData() {
     fetchData();
   }, []);
 
-  return { loading, partners, services, error };
+  return { loading, partners, marketingServices, error };
 }

@@ -30,7 +30,7 @@ export default function GenericSection({
             item === "text" ? (
               <div key={index} className={`text-center ${inverted ? "lg:text-left" : "lg:text-right"}`}>
                 <h2 className="text-3xl font-bold text-gray-900 mb-6">{title}</h2>
-                <p className="text-xl text-gray-600">{description}</p>
+                <p className="text-xl text-gray-600 whitespace-pre-line">{description}</p>
               </div>
             ) : (
               <div key={index} className="max-lg:flex max-lg:justify-center">

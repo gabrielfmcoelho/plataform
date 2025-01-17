@@ -1,10 +1,10 @@
-import { ApplicationService } from "@/types/service";
+import { MarketingService } from "@/types/service";
 import Loading from "@/components/Loading";
 import ServiceFeatureCard from "@/components/cards/ServiceFeatureCard";
 
 interface ServiceLandingGroupsProps {
     loading: boolean;
-    services: ApplicationService[];
+    services: MarketingService[];
     handleServiceClick: (serviceName: string) => void;
 }
 

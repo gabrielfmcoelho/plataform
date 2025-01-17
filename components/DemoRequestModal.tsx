@@ -44,13 +44,13 @@ export default function DemoRequestModal({ isOpen, onClose, serviceName }: DemoR
 
           <div className="bg-white px-4 pb-4 pt-5 sm:p-6">
             <h3 className="text-xl font-semibold mb-4">
-              Schedule Demo - {serviceName}
+              Agende Demonstração - {serviceName}
             </h3>
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                  Full Name
+                  Nome Completo
                 </label>
                 <input
                   type="text"
@@ -67,7 +67,7 @@ export default function DemoRequestModal({ isOpen, onClose, serviceName }: DemoR
 
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                  Work Email
+                  Email
                 </label>
                 <input
                   type="email"
@@ -84,7 +84,7 @@ export default function DemoRequestModal({ isOpen, onClose, serviceName }: DemoR
 
               <div>
                 <label htmlFor="company" className="block text-sm font-medium text-gray-700">
-                  Company/Hospital
+                  Entidade
                 </label>
                 <input
                   type="text"
@@ -101,7 +101,7 @@ export default function DemoRequestModal({ isOpen, onClose, serviceName }: DemoR
 
               <div>
                 <label htmlFor="message" className="block text-sm font-medium text-gray-700">
-                  Message (optional)
+                  Mensagem (Opcional)
                 </label>
                 <textarea
                   id="message"
@@ -124,7 +124,7 @@ export default function DemoRequestModal({ isOpen, onClose, serviceName }: DemoR
                 )}
               >
                 <Send className="h-4 w-4 mr-2" />
-                Request Demo
+                Entrar em Contato
               </button>
             </form>
           </div>

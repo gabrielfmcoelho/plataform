@@ -1,11 +1,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { getOrganizationHubServices } from '@/services/api';
-import type { HubService } from '@/types/service';
+import { getServiceApplication } from '@/services/api';
+import type { ServiceApplication } from '@/types/service';
 
-export function useService() {
-  const [service, setService] = useState<HubService[]>([]);
+export function useService(serviceId: number) {
+  const [serviceApplication, setServiceApplication] = useState<ServiceApplication|null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -17,8 +17,8 @@ export function useService() {
   const loadService = async () => {
     try {
       setLoading(true);
-      const response = await getOrganizationHubServices();
-      setService(response.data);
+      const response = await getServiceApplication(serviceId);
+      setServiceApplication(response.data);
     } catch (err) {
       setError('Falha em carregar o serviço'); 
       console.error('Error loading services:', err);
@@ -28,8 +28,8 @@ export function useService() {
   };
 
   return {
-    service,
-    setService,
+    serviceApplication,
+    setServiceApplication,
     loading,
     error,
     refreshServices: loadService,

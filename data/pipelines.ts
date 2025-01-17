@@ -1,4 +1,4 @@
-import type { Pipeline, DataSource } from 'types/pipeline';
+import type { Pipeline, DataSource } from '@/types/pipeline';
 
 const mockDataSources: DataSource[] = [
   {

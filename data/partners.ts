@@ -1,9 +1,9 @@
-import type { Partner } from 'types/partner';
+import type { Partner } from '@/types/partner';
 
 export const mockPartners: Partner[] = [
   {
     id: 1,
-    name: 'Hospital Albert Einstein',
+    name: 'Hospital São Marcos',
     logo: 'https://images.unsplash.com/photo-1632833239869-a37e3a5806d2?w=200&h=100&fit=crop',
     description: 'Leading healthcare institution in Latin America',
     website: 'https://einstein.br',
@@ -12,7 +12,7 @@ export const mockPartners: Partner[] = [
   },
   {
     id: 2,
-    name: 'Hospital Sírio-Libanês',
+    name: 'Startup Piauí',
     logo: 'https://images.unsplash.com/photo-1632833239880-5e9b9c15d2c5?w=200&h=100&fit=crop',
     description: 'Excellence in healthcare and medical research',
     website: 'https://siriolibanes.org.br',
@@ -21,7 +21,7 @@ export const mockPartners: Partner[] = [
   },
   {
     id: 3,
-    name: 'Hospital Oswaldo Cruz',
+    name: 'Investe Piauí',
     logo: 'https://images.unsplash.com/photo-1632833239891-a37e3a5806d3?w=200&h=100&fit=crop',
     description: 'Pioneer in medical excellence and patient care',
     website: 'https://oswaldocruz.com',
@@ -30,7 +30,7 @@ export const mockPartners: Partner[] = [
   },
   {
     id: 4,
-    name: 'Hospital Samaritano',
+    name: 'Sebrae',
     logo: 'https://images.unsplash.com/photo-1632833239902-a37e3a5806d4?w=200&h=100&fit=crop',
     description: 'Comprehensive healthcare solutions',
     website: 'https://samaritano.org.br',
@@ -39,7 +39,7 @@ export const mockPartners: Partner[] = [
   },
   {
     id: 5,
-    name: 'Hospital São Luiz',
+    name: 'Centelha PI',
     logo: 'https://images.unsplash.com/photo-1632833239913-a37e3a5806d5?w=200&h=100&fit=crop',
     description: 'Quality healthcare services',
     website: 'https://saoluiz.com.br',
@@ -48,7 +48,43 @@ export const mockPartners: Partner[] = [
   },
   {
     id: 6,
-    name: 'Hospital Santa Catarina',
+    name: 'CIATEN',
+    logo: 'https://images.unsplash.com/photo-1632833239924-a37e3a5806d6?w=200&h=100&fit=crop',
+    description: 'Advanced medical care and technology',
+    website: 'https://santacatarina.org.br',
+    createdAt: '2024-01-01T00:00:00Z',
+    updatedAt: '2024-03-15T00:00:00Z',
+  },
+  {
+    id: 6,
+    name: 'Hospital Universitário da UFPI',
+    logo: 'https://images.unsplash.com/photo-1632833239924-a37e3a5806d6?w=200&h=100&fit=crop',
+    description: 'Advanced medical care and technology',
+    website: 'https://santacatarina.org.br',
+    createdAt: '2024-01-01T00:00:00Z',
+    updatedAt: '2024-03-15T00:00:00Z',
+  },
+  {
+    id: 6,
+    name: 'EBSERH',
+    logo: 'https://images.unsplash.com/photo-1632833239924-a37e3a5806d6?w=200&h=100&fit=crop',
+    description: 'Advanced medical care and technology',
+    website: 'https://santacatarina.org.br',
+    createdAt: '2024-01-01T00:00:00Z',
+    updatedAt: '2024-03-15T00:00:00Z',
+  },
+  {
+    id: 6,
+    name: 'Startup NE',
+    logo: 'https://images.unsplash.com/photo-1632833239924-a37e3a5806d6?w=200&h=100&fit=crop',
+    description: 'Advanced medical care and technology',
+    website: 'https://santacatarina.org.br',
+    createdAt: '2024-01-01T00:00:00Z',
+    updatedAt: '2024-03-15T00:00:00Z',
+  },
+  {
+    id: 6,
+    name: 'FAPEPI',
     logo: 'https://images.unsplash.com/photo-1632833239924-a37e3a5806d6?w=200&h=100&fit=crop',
     description: 'Advanced medical care and technology',
     website: 'https://santacatarina.org.br',

@@ -11,6 +11,32 @@ export interface HubService {
   price: number;
 }
 
+export interface MarketingService {
+  id: number;
+  marketing_name: string;
+  description: string;
+  icon_url: string;
+  screenshot_url: string;
+  tag_line: string;
+  benefits: string[];
+  features: string[];
+  tags: string[];
+}
+
+export interface PublicService {
+  id: number;
+  name: string;
+  app_url: string;
+  last_update: string;
+  status: string;
+  version: string;
+}
+
+export interface ServiceApplication {
+  service: PublicService;
+  log_id: number;
+}
+
 export interface BaseService {
   id: string | number;
   name: string;

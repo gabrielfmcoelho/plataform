@@ -12,7 +12,7 @@ import Error from '@/components/Error';
 export default function Landing() {
   const [selectedService, setSelectedService] = useState<string | null>(null);
   const [showDemoModal, setShowDemoModal] = useState(false);
-  const { loading, services, partners, error } = useLandingData();
+  const { loading, marketingServices, partners, error } = useLandingData();
 
   if (error) {
     return (
@@ -37,7 +37,7 @@ export default function Landing() {
         callToAction='Explorar Soluções'
         ctaHref='/hub'
       />
-      <ServiceLandingGroups loading={loading} services={services} handleServiceClick={handleDemoRequest} />
+      <ServiceLandingGroups loading={loading} services={marketingServices} handleServiceClick={handleDemoRequest} />
       <PartnersSection loading={loading} partners={partners} />
       <CTASection
         calling='Vamos Transformar a Saúde hoje ?'

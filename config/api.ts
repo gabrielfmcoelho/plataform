@@ -20,4 +20,6 @@ export const API_ENDPOINTS_CONFIG = {
   LOGIN: '/login',
   LOGIN_GUEST: '/login-guest',
   ORGANIZATION_HUB_SERVICES: '/services/organization',
+  MARKETING_SERVICES: '/services/marketing',
+  SERVICE_APPLICATION: '/services/{serviceId}/use',
 } as const;
