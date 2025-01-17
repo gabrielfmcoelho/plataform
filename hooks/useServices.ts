@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { getOrganizationHubServices } from '@/services/api';
+import { getCompanyServices } from '@/services/api';
 import type { Service, HubService } from '@/types/service';
 
 export function useServices() {
@@ -11,14 +11,13 @@ export function useServices() {
 
   useEffect(() => {
     loadServices();
-    console.log('services', services);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const loadServices = async () => {
     try {
       setLoading(true);
-      const response = await getOrganizationHubServices();
+      const response = await getCompanyServices();
       console.log('response', response);
       setServices(response.data);
     } catch (err) {

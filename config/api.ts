@@ -19,5 +19,5 @@ export const API_ENDPOINTS_CONFIG = {
   TEAM: '/team',
   LOGIN: '/login',
   LOGIN_GUEST: '/login-guest',
-  ORGANIZATION_HUB_SERVICES: '/services/organization/{organizationId}',
+  ORGANIZATION_HUB_SERVICES: '/services/organization',
 } as const;

@@ -13,7 +13,7 @@ import { User } from '@/types/user';
 import { mockUsers } from '@/data/users';
 import { mockOrganizationMetrics } from '@/data/organization-metrics';
 import { getAccessToken } from '@/lib/utils/cookies';
-import { access } from 'fs';
+import { useAuth } from '@/contexts/AuthContext';
 
 export async function getTeamMembers(): Promise<ApiResponse<TeamMember[]>> {
   try {
@@ -53,18 +53,15 @@ export async function getPartners(): Promise<ApiResponse<Partner[]>> {
 
 export async function getOrganizationHubServices(): Promise<ApiResponse<HubService[]>> {
   try {
-    //if (API_CONFIG.MOCK_ON_ERROR) {
-    //  throw new Error('Mock error');
-    //}
-    return await apiRequest<HubService[]>(API_ENDPOINTS_CONFIG.ORGANIZATION_HUB_SERVICES.replace('{organizationId}', '1'), {
+    return await apiRequest<HubService[]>(API_ENDPOINTS_CONFIG.ORGANIZATION_HUB_SERVICES, {
       method: 'GET',
       headers: {
         'Authorization': 'Bearer ' + getAccessToken()
       }
     });
   } catch (error) {
-    console.warn('Failed to fetch application services, using mock data:', error);
-    throw error;
+    console.warn('Failed to fetch organization hub services', error);
+    return { data: [], status: 500 };
   }
 }
 
@@ -170,3 +167,5 @@ export async function loginGuestUser(): Promise<ApiResponse<LoginResponse>> {
     };
   }
 }
+
+export async function useService()

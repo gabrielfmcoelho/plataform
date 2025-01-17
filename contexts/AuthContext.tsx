@@ -4,37 +4,50 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { storeTokensInCookies, removeTokensFromCookies, getAccessToken } from '@/lib/utils/cookies';
 import { loginUser, loginGuestUser } from '@/services/api';
 import { jwtDecode } from 'jwt-decode'; // optional, if you want to parse user data from the token
-
+import { AuthUser } from '@/types/user';
+import { LoginResponse } from '@/types/api';
 interface AuthContextType {
-  user: any;
+  authUser: AuthUser;
   login: (email: string, password: string) => Promise<void>;
   loginAsGuest: () => Promise<void>;
   logout: () => void;
   isAdmin: boolean;
+  isAdminOrganization: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+function storeDecodedUser(token: string, setAuthUser: (user: AuthUser) => void) {
+  try{
+    const decoded: any = jwtDecode(token);
+    setAuthUser({
+      id: decoded.user_id,
+      roleId: decoded.user_role_id,
+      email: decoded.sub,
+      organizationId: decoded.organization_id,
+      organizationRoleId: decoded.organization_role_id,
+      organizationName: decoded.organization_name
+    });
+  } catch (error) {
+    console.error('Failed to decode token', error);
+  }
+}
+
+function handleLoginResponse(tokens: LoginResponse, setUser: (user: AuthUser) => void) {
+  storeTokensInCookies(tokens);
+  storeDecodedUser(tokens.accessToken, setUser);
+}
+
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<any>(null);
+  const [authUser, setAuthUser] = useState<any>(null);
 
   /**
    * Attempt to decode the token if present in cookies on initial load.
    */
   useEffect(() => {
-    const token = getAccessToken();
-    if (token) {
-      try {
-        const decoded: any = jwtDecode(token);
-        // Here you can store user info from the token’s payload
-        // e.g. decoded.email, decoded.role, etc.
-        setUser({
-          email: decoded.email,
-          role: decoded.role,
-        });
-      } catch (error) {
-        console.error('Failed to decode token', error);
-      }
+    const accessToken = getAccessToken();
+    if (accessToken) {
+      storeDecodedUser(accessToken, setAuthUser);
     }
   }, []);
 
@@ -43,15 +56,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
    */
   const login = async (email: string, password: string) => {
     const response = await loginUser({ email, password });
-    const tokens = response.data;
-    storeTokensInCookies(tokens);
-
-    // Optionally decode and store user info in state
-    const decoded: any = jwtDecode(tokens.accessToken);
-    setUser({
-      email: decoded.email,
-      role: decoded.role,
-    });
+    handleLoginResponse(response.data, setAuthUser);
   };
 
   /**
@@ -59,15 +64,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
    */
   const loginAsGuest = async () => {
     const response = await loginGuestUser();
-    const tokens = response.data;
-    storeTokensInCookies(tokens);
-
-    // Optionally decode and store user info in state
-    const decoded: any = jwtDecode(tokens.accessToken);
-    setUser({
-      email: decoded.email, // might be a placeholder
-      role: decoded.role || 'guest',
-    });
+    handleLoginResponse(response.data, setAuthUser);
   };
 
   /**
@@ -75,22 +72,24 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
    */
   const logout = () => {
     removeTokensFromCookies();
-    setUser(null);
+    setAuthUser(null);
   };
 
   /**
-   * If you store `role` in your JWT, use that.
+   * If you store `role` in easy to access format, can check if the user or organization is admin.
    */
-  const isAdmin = user?.role === 'admin';
+  const isAdmin = authUser?.roleId === 1;
+  const isAdminOrganization = authUser?.organizationRoleId === 1;
 
   return (
     <AuthContext.Provider
       value={{
-        user,
+        authUser,
         login,
         loginAsGuest,
         logout,
         isAdmin,
+        isAdminOrganization
       }}
     >
       {children}

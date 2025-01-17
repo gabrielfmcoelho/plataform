@@ -11,6 +11,6 @@ export default function HubPage() {
 }
 
 export const metadata = {
-  title: 'Hub de Serviços',
+  title: 'Hub de Aplicações',
   description: 'Gerencie e descubra serviços hospitalares integrados.'
 };

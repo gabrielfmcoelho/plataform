@@ -10,18 +10,18 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { user } = useAuth();
+  const { authUser } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
     // If user is not found, redirect to login
-    if (!user) {
+    if (!authUser) {
       router.push('/login');
     }
-  }, [user, router]);
+  }, [authUser, router]);
 
   // Optional loading indicator if the user is not yet resolved
-  if (!user) {
+  if (!authUser) {
     return (<Loading />);
   }
 

@@ -9,15 +9,15 @@ export default function AuthLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { user } = useAuth();
+  const { authUser } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
     // If user is logged in, redirect away from this auth page (e.g., to /hub)
-    if (user) {
+    if (authUser) {
       router.push('/hub');
     }
-  }, [user, router]);
+  }, [authUser, router]);
 
   return (
     <div className="min-h-screen bg-gray-50">

@@ -2,7 +2,6 @@
 
 import { Clock, ExternalLink, Pin, Edit, Trash2 } from 'lucide-react';
 import Link from 'next/link';
-import { useSession } from 'next-auth/react';
 import type { HubService } from '@/types/service';
 import { serviceIcons } from '@/lib/utils/serviceIcons';
 
@@ -14,8 +13,7 @@ interface ServiceCardProps {
 }
 
 export default function ServiceCard({ service, onTogglePin, onEdit, onDelete }: ServiceCardProps) {
-  const { data: session } = useSession();
-  const isLoggedIn = !!session?.user;
+  const isLoggedIn = true;
 
   const serviceUrl = `/service/${service.name.toLowerCase().replace(/\s+/g, '-')}`;
   const Icon = serviceIcons[service.status] || serviceIcons['Clinical'];
@@ -90,7 +88,7 @@ export default function ServiceCard({ service, onTogglePin, onEdit, onDelete }: 
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-2 sm:space-y-0">
           <div className="flex items-center text-xs sm:text-sm text-gray-500">
             <Clock className="h-4 w-4 mr-1" />
-            <span>Updated {service.last_update}</span>
+            <span>{service.last_update}</span>
           </div>
           {isLoggedIn ? (
             <Link
@@ -98,7 +96,7 @@ export default function ServiceCard({ service, onTogglePin, onEdit, onDelete }: 
               className="w-full sm:w-auto px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm sm:text-base inline-flex items-center justify-center"
             >
               <ExternalLink className="h-4 w-4 mr-2" />
-              Open Service
+              Acessar
             </Link>
           ) : (
             <button className="w-full sm:w-auto px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm sm:text-base">

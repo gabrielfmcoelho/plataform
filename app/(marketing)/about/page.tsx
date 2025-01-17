@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import AboutPage from '@/components/pages/About';
-import { getTeamMembers, getTeamNews, getPartners } from '@/services/api';
 
 export const metadata: Metadata = {
   title: 'About Us - Solude Health Tech',

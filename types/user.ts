@@ -1,5 +1,14 @@
 export type UserRole = 'admin' | 'manager' | 'staff' | 'guest';
 
+export interface AuthUser {
+  id: number;
+  roleId: number;
+  email: string;
+  organizationId: number;
+  organizationRoleId: number;
+  organizationName: string;
+}
+
 export interface PublicUser {
   id: number;
   name: string;

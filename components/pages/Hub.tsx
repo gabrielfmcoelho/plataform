@@ -1,16 +1,18 @@
 'use client';
 
 import { useEffect, useState, useMemo } from 'react';
-import { useServices } from '@/hooks/useServices';
+import { useOrganizationHubServices } from '@/hooks/useOrganzationHubServices';
 import ServiceModal from '@/components/modals/ServiceModal';
 import HubFilters from '@/components/filters/HubFilters';
 import ServiceGroups from '@/components/sections/ServiceGroups';
 import { HubService } from '@/types/service';
 import Loading from '@/components/Loading';
 import Error from '@/components/Error';
+import { useAuth } from '@/contexts/AuthContext';
 
 export default function HubContent() {  
-  const { services, setServices, loading, error } = useServices();
+  const { authUser, isAdmin, isAdminOrganization } = useAuth();
+  const { services, setServices, loading, error } = useOrganizationHubServices();
   
   const [searchTerm, setSearchTerm] = useState('');
   const [filterSubscribed, setFilterSubscribed] = useState<boolean | null>(null);
@@ -107,14 +109,7 @@ export default function HubContent() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* You could also use Next.js Metadata API in the page file instead of a separate SEO component */}
       <div className="mb-8 flex justify-between items-center">
-        <h1 className="text-3xl font-bold text-gray-900">Hub de Serviços</h1>
-        <button
-          onClick={handleAddService}
-          className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-        >
-          <svg className="h-4 w-4 mr-2" fill="none" stroke="currentColor" strokeWidth={2}><path d="M12 4v16m8-8H4" /></svg>
-          Adicionar Serviço
-        </button>
+        <h1 className="text-3xl font-bold text-gray-900">Hub de Aplicações</h1>
       </div>
       <p className="mb-6 text-gray-600">Gerencie seus serviços hospitalares</p>
 
@@ -143,6 +138,13 @@ export default function HubContent() {
         service={editingService}
       />
       */}
+      
+      <div className="border-b border-gray-200 my-8"></div>
+
+      <div className="mb-8 flex justify-between items-center">
+        <h1 className="text-3xl font-bold text-gray-900">Descubra Outras Soluções</h1>
+      </div>
+      <p className="mb-6 text-gray-600">Transforme sua operação</p>
     </div>
   );
 }
