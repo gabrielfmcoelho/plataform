@@ -5,6 +5,7 @@ export interface HubService {
   name: string;
   icon_url: string;
   description: string;
+  tags: string[];
   screenshot_url: string;
   status: string;
   last_update: string;

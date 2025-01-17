@@ -7,10 +7,9 @@ interface ServiceGroupsProps {
   groupedServices: Record<string, HubService[]>;
   onTogglePin: (serviceId: number) => void;
   onEdit: (service: HubService) => void;
-  onDelete: (serviceId: number) => void;
 }
 
-export default function ServiceGroups({ groupedServices, onTogglePin, onEdit, onDelete }: ServiceGroupsProps) {
+export default function ServiceGroups({ groupedServices, onTogglePin, onEdit }: ServiceGroupsProps) {
   return (
     <>
       {
@@ -29,7 +28,6 @@ export default function ServiceGroups({ groupedServices, onTogglePin, onEdit, on
                     service={service}
                     onTogglePin={() => onTogglePin(service.id)}
                     onEdit={() => onEdit(service)}
-                    onDelete={() => onDelete(service.id)}
                   />
                 ))}
               </div>

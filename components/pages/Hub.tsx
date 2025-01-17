@@ -15,45 +15,38 @@ export default function HubContent() {
   const { services, setServices, loading, error } = useOrganizationHubServices();
   
   const [searchTerm, setSearchTerm] = useState('');
-  const [filterSubscribed, setFilterSubscribed] = useState<boolean | null>(null);
   const [selectedTag, setSelectedTag] = useState('all');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingService, setEditingService] = useState<HubService | null>(null);
 
-  /*
-  const tags = useMemo(
-    () => ['all', ...new Set(services.map(service => service.tag))],
-    [services]
-  );
-  */
+  const tags = useMemo(() => {
+    // Populate with unique tags from all services
+    return Array.from(
+      new Set(services.flatMap(service => service.tags)) // Flatten all tags and ensure uniqueness
+    );
+  }, [services]);
 
-  // Filtering logic extracted for clarity
-  /*
+  // Filtering logic
   const filteredServices = useMemo(() => {
-    return services
-      .filter((service) => {
-        const matchesSearch = service.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                              service.description.toLowerCase().includes(searchTerm.toLowerCase());
-        const matchesFilter = filterSubscribed === null || service.isSubscribed === filterSubscribed;
-        const matchesTag = selectedTag === 'all' || service.tag === selectedTag;
-        return matchesSearch && matchesFilter && matchesTag;
-      })
-      .sort((a, b) => {
-        if (a.isPinned && !b.isPinned) return -1;
-        if (!a.isPinned && b.isPinned) return 1;
-        return 0;
-      });
-  }, [services, searchTerm, filterSubscribed, selectedTag]);
-  */
+    return services.filter(service => {
+      const matchesSearch =
+        service.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        service.description.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesTag = selectedTag === 'all' || service.tags.includes(selectedTag); // Use `tags` array for filtering
+      return matchesSearch && matchesTag;
+    });
+  }, [services, searchTerm, selectedTag]);
 
+  // Group services by status
   const groupedServices = useMemo(() => {
-    return services.reduce((acc, service) => {
-      const tag = service.status;
-      if (!acc[tag]) acc[tag] = [];
-      acc[tag].push(service);
+    return filteredServices.reduce((acc, service) => {
+      const status = service.status;
+      if (!acc[status]) acc[status] = [];
+      acc[status].push(service);
       return acc;
     }, {} as Record<string, HubService[]>);
-  }, [services]);
+  }, [filteredServices]);
+
 
   const handleTogglePin = (serviceId: number) => {
     /*
@@ -67,30 +60,9 @@ export default function HubContent() {
     */
   };
 
-  const handleAddService = () => {
-    setEditingService(null);
-    setIsModalOpen(true);
-  };
-
   const handleEditService = (service: HubService) => {
     setEditingService(service);
     setIsModalOpen(true);
-  };
-
-  
-  const handleDeleteService = (serviceId: number) => {
-    //setServices(prevServices => prevServices.filter(service => service.id !== serviceId));
-  };
-
-  const handleSaveService = (service: HubService) => {
-    if (editingService) {
-      //setServices(prevServices =>
-      //  prevServices.map(s => (s.id === service.id ? service : s))
-      //);
-    } else {
-      //setServices(prevServices => [...prevServices, { ...service, id: String(Date.now()) }]);
-    }
-    setIsModalOpen(false);
   };
 
   if (loading) {
@@ -116,18 +88,15 @@ export default function HubContent() {
       <HubFilters
         searchTerm={searchTerm}
         onSearchChange={setSearchTerm}
-        tags={['all']}
+        tags={tags}
         selectedTag={selectedTag}
         onTagChange={setSelectedTag}
-        filterSubscribed={filterSubscribed}
-        onFilterChange={setFilterSubscribed}
       />
 
       <ServiceGroups
         groupedServices={groupedServices}
         onTogglePin={handleTogglePin}
         onEdit={handleEditService}
-        onDelete={handleDeleteService}
       />
 
       {/*

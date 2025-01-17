@@ -9,10 +9,9 @@ interface ServiceCardProps {
   service: HubService;
   onTogglePin?: (serviceId: number) => void;
   onEdit?: () => void;
-  onDelete?: () => void;
 }
 
-export default function ServiceCard({ service, onTogglePin, onEdit, onDelete }: ServiceCardProps) {
+export default function ServiceCard({ service, onTogglePin, onEdit }: ServiceCardProps) {
   const isLoggedIn = true;
 
   const serviceUrl = `/service/${service.name.toLowerCase().replace(/\s+/g, '-')}`;
@@ -27,10 +26,17 @@ export default function ServiceCard({ service, onTogglePin, onEdit, onDelete }: 
           className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-        <div className="absolute bottom-4 left-4 right-4 flex justify-between items-center">
-          <span className={`px-2.5 py-1 rounded-full text-xs font-medium bg-white/90 text-gray-800`}>
-            {service.status}
-          </span>
+        <div className="absolute bottom-4 left-4 right-4 flex justify-start space-x-2 items-center">
+          {
+            service.tags.map((tag) => (
+              <span
+                key={tag}
+                className={`px-2.5 py-1 rounded-full text-xs font-medium bg-white/90 text-gray-800`}
+              >
+                {tag}
+              </span>   
+            ))
+          }
           {/*
           {isLoggedIn && (
             <button
@@ -69,13 +75,6 @@ export default function ServiceCard({ service, onTogglePin, onEdit, onDelete }: 
                 title="Edit service"
               >
                 <Edit className="h-4 w-4" />
-              </button>
-              <button
-                onClick={onDelete}
-                className="p-1 rounded-full text-gray-400 hover:text-red-600 hover:bg-red-50"
-                title="Delete service"
-              >
-                <Trash2 className="h-4 w-4" />
               </button>
             </div>
           )}
